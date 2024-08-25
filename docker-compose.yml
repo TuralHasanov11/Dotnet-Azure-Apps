@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  learningservice:
+    image: ${DOCKER_REGISTRY-}learningservice
+    container_name: dotazure.learningservice
+    build:
+      context: .
+      dockerfile: LearningService/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    networks:
+      - default
+
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    container_name: dotazure.webapp
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+    ports:
+      - "5100:5100"
+      - "5101:5101"
+    networks:
+      - default
+
+
+networks:
+  default:
+    name: default
+    driver: bridge
